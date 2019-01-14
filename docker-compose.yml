@@ -1,0 +1,22 @@
+version: '2'
+services:
+    couchbase:
+        build: ./couchbase
+        ports:
+            - 8091:8091
+            - 8092:8092
+            - 8093:8093
+        environment:
+            - COUCHBASE_ADMINISTRATOR_USERNAME=Administrator
+            - COUCHBASE_ADMINISTRATOR_PASSWORD=password
+            - COUCHBASE_BUCKET=default
+            - COUCHBASE_BUCKET_PASSWORD=
+    php:
+        build: ./php
+        ports:
+            - 8080:80
+        environment:
+            - COUCHBASE_HOST=couchbase
+            - COUCHBASE_BUCKET_NAME=default
+            - COUCHBASE_BUCKET_PASSWORD=
+        restart: always
